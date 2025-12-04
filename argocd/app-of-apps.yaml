@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  project: demo-project
 
   source:
     # IMPORTANT: Replace with your Git repository URL

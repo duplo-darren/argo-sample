@@ -12,6 +12,8 @@ spec:
   destinations:
     - namespace: duploservices-darren
       server: https://kubernetes.default.svc
+    - namespace: duploservices-argocd01
+      server: https://kubernetes.default.svc
 
   clusterResourceWhitelist:
     - group: ''
