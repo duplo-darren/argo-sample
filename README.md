@@ -2,22 +2,26 @@
 
 A simple project to learn ArgoCD GitOps with a frontend webserver and backend API.
 
+## Namespaces
+
+- **ArgoCD namespace:** `duploservices-argocd01`
+- **Workload namespace:** `duploservices-darren`
+
 ## Project Structure
 
 ```
 argo/
-├── argocd/                    # ArgoCD Application manifests
-│   ├── app-of-apps.yaml       # Parent app that manages other apps
+├── argocd/                        # ArgoCD Application manifests
+│   ├── app-of-apps.yaml           # Parent app that manages other apps
 │   ├── application-backend.yaml
 │   ├── application-frontend.yaml
-│   ├── namespace.yaml
-│   └── project.yaml           # ArgoCD Project definition
+│   └── project.yaml               # ArgoCD Project definition
 ├── base/
-│   ├── backend/               # Backend API (http-echo)
+│   ├── backend/                   # Backend API (http-echo)
 │   │   ├── deployment.yaml
 │   │   ├── service.yaml
 │   │   └── kustomization.yaml
-│   └── frontend/              # Frontend webserver (nginx)
+│   └── frontend/                  # Frontend webserver (nginx)
 │       ├── configmap.yaml
 │       ├── deployment.yaml
 │       ├── service.yaml
@@ -25,36 +29,12 @@ argo/
 └── README.md
 ```
 
-## Prerequisites
-
-- Kubernetes cluster (minikube, kind, k3s, etc.)
-- kubectl configured
-- ArgoCD installed in your cluster
-
 ## Quick Start
 
-### 1. Install ArgoCD (if not already installed)
+### 1. Push this repo to GitHub
 
 ```bash
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-```
-
-### 2. Access ArgoCD UI
-
-```bash
-# Get the initial admin password
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
-
-# Port forward to access the UI
-kubectl port-forward svc/argocd-server -n argocd 8080:443
-```
-
-Then open https://localhost:8080 (username: `admin`)
-
-### 3. Push this repo to GitHub
-
-```bash
+cd /Users/darren/dev/argo
 git init
 git add .
 git commit -m "Initial ArgoCD demo project"
@@ -62,14 +42,14 @@ git remote add origin https://github.com/YOUR_USERNAME/argo.git
 git push -u origin main
 ```
 
-### 4. Update the repo URL
+### 2. Update the repo URL
 
 Edit these files and replace `YOUR_USERNAME` with your GitHub username:
 - `argocd/application-backend.yaml`
 - `argocd/application-frontend.yaml`
 - `argocd/app-of-apps.yaml`
 
-### 5. Deploy using App of Apps pattern
+### 3. Deploy using App of Apps pattern
 
 ```bash
 kubectl apply -f argocd/app-of-apps.yaml
@@ -78,21 +58,18 @@ kubectl apply -f argocd/app-of-apps.yaml
 Or deploy apps individually:
 
 ```bash
-kubectl apply -f argocd/namespace.yaml
 kubectl apply -f argocd/project.yaml
 kubectl apply -f argocd/application-backend.yaml
 kubectl apply -f argocd/application-frontend.yaml
 ```
 
-### 6. Access the frontend
+### 4. Access the frontend
 
 ```bash
-# If using minikube
-minikube service frontend -n demo-app
-
-# Or port-forward
-kubectl port-forward svc/frontend -n demo-app 8081:80
+kubectl port-forward svc/frontend -n duploservices-darren 8080:80
 ```
+
+Then open http://localhost:8080
 
 ## Learning Exercises
 
@@ -104,7 +81,7 @@ kubectl port-forward svc/frontend -n demo-app 8081:80
 5. Click "Sync" to apply the change
 
 ### Exercise 2: Self-Healing
-1. Manually scale the backend: `kubectl scale deployment backend -n demo-app --replicas=1`
+1. Manually scale the backend: `kubectl scale deployment backend -n duploservices-darren --replicas=1`
 2. Watch ArgoCD automatically restore to the desired state (2 replicas)
 
 ### Exercise 3: Rollback
@@ -132,25 +109,23 @@ kubectl port-forward svc/frontend -n demo-app 8081:80
 ## Useful Commands
 
 ```bash
-# ArgoCD CLI (install: brew install argocd)
-argocd login localhost:8080
+# ArgoCD CLI
 argocd app list
 argocd app get frontend
 argocd app sync frontend
 argocd app history frontend
-argocd app rollback frontend <revision>
 
 # Kubectl
-kubectl get applications -n argocd
-kubectl get all -n demo-app
+kubectl get applications -n duploservices-argocd01
+kubectl get all -n duploservices-darren
 ```
 
 ## Troubleshooting
 
 **App stuck in "Progressing":**
 ```bash
-kubectl describe application frontend -n argocd
-kubectl get events -n demo-app
+kubectl describe application frontend -n duploservices-argocd01
+kubectl get events -n duploservices-darren
 ```
 
 **Sync failed:**

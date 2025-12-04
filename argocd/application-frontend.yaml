@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: frontend
-  namespace: argocd
+  namespace: duploservices-argocd01
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -10,17 +10,15 @@ spec:
 
   source:
     # IMPORTANT: Replace with your Git repository URL
-    repoURL: https://github.com/YOUR_USERNAME/argo.git
+    repoURL: https://github.com/dspaxton/argo-sample.git
     targetRevision: HEAD
     path: base/frontend
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: demo-app
+    namespace: duploservices-darren
 
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
