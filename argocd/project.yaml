@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: demo-project
+  namespace: argocd
+spec:
+  description: Demo project for learning ArgoCD
+
+  # Allow manifests from any Git repo (you'll want to restrict this in production)
+  sourceRepos:
+    - '*'
+
+  # Allow deploying to demo-app namespace
+  destinations:
+    - namespace: demo-app
+      server: https://kubernetes.default.svc
+
+  # Allow all cluster-scoped resources (be more restrictive in production)
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+
+  # Allow all namespaced resources
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
