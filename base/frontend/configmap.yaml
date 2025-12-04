@@ -58,7 +58,7 @@ data:
                 <ul>
                     <li>Change the replica count and watch ArgoCD sync</li>
                     <li>Modify this HTML and push to git</li>
-                    <li>Check the ArgoCD UI to see sync status and Merry CHristmas</li>
+                    <li>Check the ArgoCD UI to see sync status and Merry Christmas</li>
                 </ul>
             </div>
             <p><strong>Backend API:</strong> <code>http://backend:5000</code></p>
