@@ -10,7 +10,7 @@ spec:
     - '*'
 
   destinations:
-    - namespace: duploservices-darren
+    - namespace: duploservices-argocd01
       server: https://kubernetes.default.svc
     - namespace: duploservices-argocd01
       server: https://kubernetes.default.svc
