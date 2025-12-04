@@ -10,7 +10,7 @@ spec:
 
   source:
     # IMPORTANT: Replace with your Git repository URL
-    repoURL: https://github.com/dspaxton/argo-sample.git
+    repoURL: https://github.com/duplo-darren/argo-sample.git
     targetRevision: HEAD
     path: base/backend
 
