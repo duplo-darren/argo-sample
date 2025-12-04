@@ -24,7 +24,7 @@ spec:
       containers:
         - name: frontend
           # UPDATE THIS: Replace with your ECR repository URL
-          image: 803817915563.dkr.ecr.us-east-1.amazonaws.com/frontend:v3
+          image: 803817915563.dkr.ecr.us-east-1.amazonaws.com/frontend:v4
           ports:
             - containerPort: 80
           resources:
