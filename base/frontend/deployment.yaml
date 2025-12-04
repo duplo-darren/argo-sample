@@ -19,10 +19,12 @@ spec:
       labels:
         app: frontend
     spec:
+      imagePullSecrets:
+        - name: ecr-secret
       containers:
         - name: frontend
           # UPDATE THIS: Replace with your ECR repository URL
-          image: 803817915563.dkr.ecr.us-east-1.amazonaws.com/frontend:v1
+          image: 803817915563.dkr.ecr.us-east-1.amazonaws.com/frontend:v2
           ports:
             - containerPort: 80
           resources:
