@@ -41,4 +41,4 @@ echo "==> Updating deployment to use ${FULL_IMAGE}"
 sed -i '' "s|image: ${ECR_REPO}:.*|image: ${FULL_IMAGE}|" ${DEPLOYMENT_FILE}
 
 echo "==> Done! Don't forget to commit and push:"
-echo "    git add -A && git commit -m 'Deploy ${APP} ${TAG}' && git push"
+echo "    git add -A && git commit -m 'Deploy ${APP} ${TAG}' && git push origin main"
